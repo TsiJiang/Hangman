@@ -11,8 +11,8 @@ namespace Hangman
         {
             Console.WriteLine("Let's Play Hangman");
             Random wordGen = new Random();
-            var index = wordGen.Next(0, Word.GetValues(typeof(ContentAlignment)).Length);
-            string mysteryWord = ((Word)index).ToString().ToLower();
+            var index = wordGen.Next(0, Enum.GetNames(typeof(Words)).Length); // GetNames and GetValues both work but supposedly GetNames is faster 
+            string mysteryWord = ((Words)index).ToString().ToLower();
             string charGuesses = "";
             string guess = "";
             int badGuess = 0;
@@ -21,9 +21,7 @@ namespace Hangman
             {
                 do
                 {
-                    PrintBoard(badGuess);
-                    Console.WriteLine(PrintMysteryWord(mysteryWord,charGuesses));
-                    Console.WriteLine(charGuesses);
+                    SetDisplay(badGuess, mysteryWord, charGuesses);
                     Console.Write("\nPlease enter a letter: ");
                     guess = Console.ReadLine();
                     guess = guess.ToLower();
@@ -40,15 +38,11 @@ namespace Hangman
             {
                 Console.Clear();
                 Console.WriteLine("You Win!");
-                PrintBoard(badGuess);
-                Console.WriteLine(PrintMysteryWord(mysteryWord, charGuesses));
-                Console.WriteLine(charGuesses);
+                SetDisplay(badGuess, mysteryWord, charGuesses);
             }
             else 
             {
-                PrintBoard(badGuess);
-                Console.WriteLine(PrintMysteryWord(mysteryWord, charGuesses));
-                Console.WriteLine(charGuesses);
+                SetDisplay(badGuess, mysteryWord, charGuesses);
             }
             Console.ReadLine();
         } //End of Main
@@ -100,7 +94,7 @@ namespace Hangman
                     Console.WriteLine("  / \\ ");
                     break;
             }
-        }
+        } //End of PrintBoard
         static string PrintMysteryWord(string mysteryWord, string guessString) 
         {
             string ans = "";
@@ -122,61 +116,16 @@ namespace Hangman
                 }
             }
             return ans;
-        }
-    }
-}
-//if (guessCount == 1)
-//{
-//    Console.WriteLine("  O  ");
-//}
+        } //End of PrintMysteryWord
+        static void SetDisplay(int badGuess, string mysteryWord, string charGuesses) 
+        {
+            PrintBoard(badGuess);
+            Console.WriteLine(PrintMysteryWord(mysteryWord, charGuesses));
+            Console.WriteLine(charGuesses);
+        } //End of SetDisplay
+    } //End of Program
+} // End of Hangman
 
-//else if (guessCount == 2)
-//{
-//    Console.WriteLine("  O  ");
-//    Console.WriteLine("  |  ");
-//}
-
-//else if (guessCount == 3)
-//{
-//    Console.WriteLine("  O  ");
-//    Console.WriteLine("  |  ");
-//    Console.WriteLine(" |   ");
-//}
-
-//else if (guessCount == 4)
-//{
-//    Console.WriteLine("  O  ");
-//    Console.WriteLine("  |  ");
-//    Console.WriteLine(" / \\ ");
-//}
-
-//else if (guessCount == 5)
-//{
-
-//    Console.WriteLine(@" \ O  ");
-//    Console.WriteLine("   |  ");
-//    Console.WriteLine(@"  / \ ");
-//}
-
-//else if (guessCount == 6)
-//{
-//    Console.WriteLine("You Lose!");
-//    Console.WriteLine(@" \ O /  ");
-//    Console.WriteLine("   |  ");
-//    Console.WriteLine(@"  / \ ");
-//    break;
-//}
-
-
-    //while (true)
-    //{
-    //    char playerGuess = char.Parse(Console.ReadLine());
-    //    for (int j = 0; j < mysteryWord.Length; j++)
-    //    {
-    //        if (playerGuess == mysteryWord[j])
-    //            guess[j] = playerGuess;
-    //    }
-    //    Console.WriteLine(guess);
 
 
 

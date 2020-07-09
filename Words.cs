@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hangman
 {
-    enum Word
+    enum Words
     {
         mongolian,
         elephant,
